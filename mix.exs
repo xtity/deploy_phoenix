@@ -3,7 +3,7 @@ defmodule DeployPhoenix.Mixfile do
 
   def project do
     [app: :deploy_phoenix,
-     version: "0.0.1",
+     version: "0.0.2",
      elixir: "~> 1.0",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix] ++ Mix.compilers,
@@ -17,7 +17,7 @@ defmodule DeployPhoenix.Mixfile do
   # Type `mix help compile.app` for more information
   def application do
     [mod: {DeployPhoenix, []},
-     applications: [:phoenix, :cowboy, :logger, :ecto]]
+     applications: [:phoenix, :cowboy, :logger]]
   end
 
   # Specifies which paths to compile per environment
@@ -29,9 +29,8 @@ defmodule DeployPhoenix.Mixfile do
   # Type `mix help deps` for examples and options
   defp deps do
     [{:phoenix, github: "phoenixframework/phoenix", override: true},
-     {:phoenix_ecto, "~> 0.3"},
-     {:postgrex, ">= 0.0.0"},
      {:phoenix_live_reload, "~> 0.3"},
-     {:cowboy, "~> 1.0"}]
+     {:cowboy, "~> 1.0"},
+     {:exrm, "~> 0.14.16"}]
   end
 end

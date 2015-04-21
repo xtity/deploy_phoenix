@@ -9,7 +9,7 @@ use Mix.Config
 config :deploy_phoenix, DeployPhoenix.Endpoint,
   url: [host: "localhost"],
   root: Path.expand("..", __DIR__),
-  secret_key_base: "cMKe3e9j4leI5liHn4FW21z1nzVysT3iSwJIyVkZ2bnYBG9WJjVR6oONTIIfRjqm",
+  secret_key_base: "/+UVIJlwDkT3tPh0al7J9ACT5Y813LOiC3umkZ4VVIlnExhAbtb9uDEJrsSnlV/7",
   debug_errors: false,
   pubsub: [name: DeployPhoenix.PubSub,
            adapter: Phoenix.PubSub.PG2]
