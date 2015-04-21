@@ -1,0 +1,11 @@
+image: xtity/docker-centos7-elixir
+env:
+  - MIX_ENV=test
+script:
+  - mix clean
+  - yes | mix local.hex && yes | mix local.rebar
+  - mix deps.get
+  - mix test
+  - mix compile
+  - mix dialyzer
+
