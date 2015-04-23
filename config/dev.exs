@@ -25,10 +25,3 @@ config :deploy_phoenix, DeployPhoenix.Endpoint,
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
-
-# Configure your database
-config :deploy_phoenix, DeployPhoenix.Repo,
-  adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
-  database: "deploy_phoenix_dev"

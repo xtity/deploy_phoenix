@@ -8,12 +8,3 @@ config :deploy_phoenix, DeployPhoenix.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
-
-# Configure your database
-config :deploy_phoenix, DeployPhoenix.Repo,
-  adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
-  database: "deploy_phoenix_test",
-  size: 1,
-  max_overflow: false
