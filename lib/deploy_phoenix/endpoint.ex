@@ -29,8 +29,7 @@ defmodule DeployPhoenix.Endpoint do
   plug Plug.Session,
     store: :cookie,
     key: "_deploy_phoenix_key",
-    signing_salt: "Z+VqqsTt",
-    encryption_salt: "WvTvDiUl"
+    signing_salt: "2QWBLeT3"
 
   plug :router, DeployPhoenix.Router
 end

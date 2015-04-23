@@ -20,11 +20,6 @@ defmodule DeployPhoenix.ConnCase do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
 
-      # Alias the data repository and import query/model functions
-      alias DeployPhoenix.Repo
-      import Ecto.Model
-      import Ecto.Query, only: [from: 2]
-
       # Import URL helpers from the router
       import DeployPhoenix.Router.Helpers
 
@@ -34,9 +29,6 @@ defmodule DeployPhoenix.ConnCase do
   end
 
   setup tags do
-    unless tags[:async] do
-      Ecto.Adapters.SQL.restart_test_transaction(DeployPhoenix.Repo, [])
-    end
 
     :ok
   end

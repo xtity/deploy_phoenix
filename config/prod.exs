@@ -21,7 +21,7 @@ config :deploy_phoenix, DeployPhoenix.Endpoint,
 # To get SSL working, you will need to add the `https` key
 # to the previous section:
 #
-#  config:deploy_phoenix, DeployPhoenix.Endpoint,
+#  config :deploy_phoenix, DeployPhoenix.Endpoint,
 #    ...
 #    https: [port: 443,
 #            keyfile: System.get_env("SOME_APP_SSL_KEY_PATH"),
