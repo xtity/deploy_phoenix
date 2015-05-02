@@ -1,5 +1,7 @@
-%{"cowboy": {:hex, :cowboy, "1.0.0"},
+%{"conform": {:hex, :conform, "0.11.0"},
+  "cowboy": {:hex, :cowboy, "1.0.0"},
   "cowlib": {:hex, :cowlib, "1.0.1"},
+  "exrm": {:hex, :exrm, "0.14.17"},
   "fs": {:hex, :fs, "0.9.1"},
   "phoenix": {:git, "git://github.com/phoenixframework/phoenix.git", "c117a9f347a4bf9feb210b5653841d5b417288fe", []},
   "phoenix_live_reload": {:hex, :phoenix_live_reload, "0.3.1"},

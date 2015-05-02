@@ -26,3 +26,6 @@ ebin
 rel
 .concrete/DEV_MODE
 .rebar
+
+# Custome
+*.sublime-*
