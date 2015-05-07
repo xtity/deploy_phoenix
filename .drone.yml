@@ -3,22 +3,24 @@ env:
   - MIX_ENV=test
 script:
   - mix clean
-  - yes | mix local.hex && yes | mix local.rebar
-  - mix deps.get
-  - mix test
-  - mix compile
-  - mix dialyzer
+  # - yes | mix local.hex && yes | mix local.rebar
+  # - mix deps.get
+  # - mix test
+  # - mix compile
+  # - mix dialyzer
 deploy:
   bash:
     script:
-      - MIX_ENV=prod mix deps.get
-      - npm install && brunch build
-      # - MIX_ENV=prod PORT=4000 mix release
-      - MIX_ENV=prod mix release
-      # - yes | mix local.hex && yes | mix local.rebar && mix do deps.get && MIX_ENV=prod mix compile.protocols
-      # - mix compile.protocols
-    when:
-      branch: master
+      - ssh xtity@xtity.com
+    #   - MIX_ENV=prod mix deps.get
+    #   - npm install && brunch build
+    #   # - MIX_ENV=prod PORT=4000 mix release
+    #   - MIX_ENV=prod mix release
+    #   # - yes | mix local.hex && yes | mix local.rebar && mix do deps.get && MIX_ENV=prod mix compile.protocols
+    #   # - mix compile.protocols
+    #   - cp -a rel/*/*/.tar.gz 
+    # when:
+    #   branch: master
 
 
 
