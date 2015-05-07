@@ -11,7 +11,7 @@ script:
 deploy:
   bash:
     script:
-      - ssh xtity@xtity.com
+      - ssh xtity@xtity.com 'mkdir /usr/local/src/phoenix/current'
     #   - MIX_ENV=prod mix deps.get
     #   - npm install && brunch build
     #   # - MIX_ENV=prod PORT=4000 mix release
