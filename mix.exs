@@ -30,6 +30,7 @@ defmodule DeployPhoenix.Mixfile do
   defp deps do
     [{:phoenix, github: "phoenixframework/phoenix", override: true},
      {:phoenix_live_reload, "~> 0.3"},
-     {:cowboy, "~> 1.0"}]
+     {:cowboy, "~> 1.0"},
+     {:exrm, "~> 0.14.16"}]
   end
 end
