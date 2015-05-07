@@ -18,7 +18,8 @@ deploy:
       # - yes | mix local.hex && yes | mix local.rebar && mix do deps.get && MIX_ENV=prod mix compile.protocols
       # - mix compile.protocols
     when:
-      branch:master
+      branch: master
+
 
 
 
