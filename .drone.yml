@@ -1,4 +1,4 @@
-image: xtity/docker-centos7-elixir-phoenix
+image: xtity/deploy_phoenix
 env:
   - MIX_ENV=test
 script:
@@ -8,6 +8,18 @@ script:
   # - mix test
   # - mix compile
   # - mix dialyzer
+publish:
+  github:
+    artifacts:
+      - release
+    repo: deploy_phoenix
+    script:
+      - make release
+    tag: v$(cat VERSION)
+    token: $$github_token
+    user: xtity
+    # when:
+    #   branch: master
 deploy:
   bash:
     script:
@@ -18,13 +30,10 @@ deploy:
       # - yes | mix local.hex && yes | mix local.rebar && mix do deps.get && MIX_ENV=prod mix compile.protocols
       # - mix compile.protocols
       - ssh xtity@xtity.com
-      - ssh xtity@xtity.com "if [ -e /usr/local/src/phoenix/current ]; then
-          mv /usr/local/src/phoenix/current /usr/local/src/phoenix/bk_`date '+%Y%m%d%H%M%S'`;
-        fi;
-        mkdir /usr/local/src/phoenix/current;"
-      - scp -r rel/*/*.tar.gz xtity@xtity.com:/usr/local/src/phoenix/current
-      - ssh xtity@xtity.com 'tar zxvf /usr/local/src/phoenix/current/*.tar.gz -C /usr/local/src/phoenix/current/'
-      - ssh xtity@xtity.com 'echo `/usr/local/src/phoenix/current/bin/deploy_phoenix stop`; PORT=4000 /usr/local/src/phoenix/current/bin/deploy_phoenix start'
+      - ssh xtity@xtity.com "if [ ! -e /usr/local/src/phoenix/app/rel/deploy_phoenix/releases/$(cat VERSION) ]; then
+          mkdir -p /usr/local/src/phoenix/app/rel/deploy_phoenix/releases/$(cat VERSION);
+        fi;"
+      - scp -r rel/*/*.tar.gz xtity@xtity.com:/usr/local/src/phoenix/app/rel/deploy_phoenix/releases/$(cat VERSION)/deploy_phoenix.tar.gz
     # when:
     #   branch: master
 
