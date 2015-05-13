@@ -39,7 +39,8 @@ deploy:
           cd /usr/local/src/phoenix/deploy_phoenix;
           rm -rf bk;
           cp -a current bk;
-          mv -f deploy current;
+          rm -rf current
+          mv deploy current;
         "
       # - ssh xtity@xtity.com "if [ ! -e /usr/local/src/phoenix/app/deploy_phoenix/rel/deploy_phoenix/releases/$(cat VERSION) ]; then
     # when:
