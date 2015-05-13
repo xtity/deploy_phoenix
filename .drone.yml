@@ -26,12 +26,16 @@ deploy:
       # - scp -r rel/deploy_phoenix/*.tar.gz xtity@xtity.com:/usr/local/src/phoenix/app/deploy_phoenix/deploy/
       - ssh xtity@xtity.com "
           cd /usr/local/src/phoenix/deploy_phoenix/;
+          if [ -e /usr/local/src/phoenix/deploy_phoenix/deploy ]; then
+            rm -rf /usr/local/src/phoenix/deploy_phoenix/deploy;
+          fi;
           mkdir deploy;
         "
       - scp -r ../build.tar.gz xtity@xtity.com:/usr/local/src/phoenix/deploy_phoenix/deploy/
       - ssh xtity@xtity.com "
           cd /usr/local/src/phoenix/deploy_phoenix;
-          tar -xvzf build.tar.gz -C deploy/;
+          tar -xvzf deploy/build.tar.gz -C deploy/;
+          rm -rf deploy/build.tar.gz
           rm -rf bk;
           cp -a current bk;
           mv -f deploy current;
