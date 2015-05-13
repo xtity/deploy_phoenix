@@ -13,10 +13,12 @@ deploy:
     script:
       - ssh xtity@xtity.com "
           cd /usr/local/src/phoenix/deploy_phoenix;
-          if [ ! -e /usr/local/src/phoenix/deploy_phoenix/VERSION ]; then
-            git checkout .;
+          if [ ! -e /usr/local/src/phoenix/deploy_phoenix/.git ]; then
+            git clone ${PHOENIX_APP_REPO};
           fi;
+          git checkout .
           git pull origin master;
+          cat VERSION >> /usr/local/app/phoenix/${PHOENIX_APP_NAME}/DEPLOY_VERSIONS;
         "
       # - MIX_ENV=prod mix deps.get
       # - npm install && brunch build
