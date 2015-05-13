@@ -63,7 +63,7 @@ RUN cp -a /usr/local/src/phoenix/${PHOENIX_APP_NAME}/current/${PHOENIX_APP_NAME}
 # RUN echo "/usr/local/src/phoenix/app/${PHOENIX_APP_NAME}/rel/${PHOENIX_APP_NAME}/releases IN_CREATE touch /root/tmp/yo.txt" >> /var/spool/incron/root
 # ADD incron_release.sh /usr/local/src/phoenix/app/${PHOENIX_APP_NAME}/incron_release.sh
 # RUN echo "/usr/local/app/phoenix/${PHOENIX_APP_NAME}/rel/${PHOENIX_APP_NAME}/releases IN_CREATE /bin/bash /usr/local/src/phoenix/${PHOENIX_APP_NAME}/current/${PHOENIX_APP_NAME}/incron_release.sh" >> /var/spool/incron/root
-RUN echo "/usr/local/src/phoenix/${PHOENIX_APP_NAME}/current/${PHOENIX_APP_NAME}/VERSION IN_CREATE /bin/bash /usr/local/src/phoenix/${PHOENIX_APP_NAME}/current/${PHOENIX_APP_NAME}/incron_release.sh" >> /var/spool/incron/root
+RUN echo "/usr/local/src/phoenix/${PHOENIX_APP_NAME}/current/${PHOENIX_APP_NAME}/VERSION IN_MODIFY /bin/bash /usr/local/src/phoenix/${PHOENIX_APP_NAME}/current/${PHOENIX_APP_NAME}/incron_release.sh" >> /var/spool/incron/root
 # RUN echo "/usr/local/src/phoenix/app/${PHOENIX_APP_NAME}/rel/${PHOENIX_APP_NAME}/releases/$PHOENIX_APP_VERSION/$PHOENIX_APP_NAME.tar.gz IN_CREATE touch /root/tmp/yo.txt" >> /var/spool/incron/root
 ########## INCRON ##########
 

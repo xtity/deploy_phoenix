@@ -17,7 +17,7 @@ deploy:
       - MIX_ENV=prod mix release
       # - yes | mix local.hex && yes | mix local.rebar && mix do deps.get && MIX_ENV=prod mix compile.protocols
       # - mix compile.protocols
-      - tar -cvz ../build.tar.gz .
+      - tar -czf ../build.tar.gz .
       - ssh xtity@xtity.com
       # - ssh xtity@xtity.com "if [ ! -e /usr/local/src/phoenix/app/deploy_phoenix/rel/deploy_phoenix/releases/$(cat VERSION) ]; then
       #     mkdir -p /usr/local/src/phoenix/app/deploy_phoenix/rel/deploy_phoenix/releases/$(cat VERSION);
@@ -34,7 +34,7 @@ deploy:
       - scp -r ../build.tar.gz xtity@xtity.com:/usr/local/src/phoenix/deploy_phoenix/deploy/
       - ssh xtity@xtity.com "
           cd /usr/local/src/phoenix/deploy_phoenix/deploy;
-          tar -xvz build.tar.gz;
+          tar -xzf build.tar.gz;
           rm -rf build.tar.gz;
           cd /usr/local/src/phoenix/deploy_phoenix;
           rm -rf bk;
