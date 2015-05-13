@@ -3,6 +3,7 @@
 export PHOENIX_APP_VERSION=`cat /usr/local/src/phoenix/${PHOENIX_APP_NAME}/VERSION`
 
 cd /usr/local/src/phoenix/${PHOENIX_APP_NAME}
+git pull origin master
 yes | mix local.hex && yes | mix local.rebar && npm install && npm install -g brunch && mix do deps.get && brunch build && mix phoenix.digest && MIX_ENV=prod mix release
 
 cp -rp /usr/local/src/phoenix/${PHOENIX_APP_NAME}/rel/${PHOENIX_APP_NAME}/releases/${PHOENIX_APP_VERSION} /usr/local/app/phoenix/${PHOENIX_APP_NAME}/rel/${PHOENIX_APP_NAME}/releases/
