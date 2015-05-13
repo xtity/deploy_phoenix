@@ -1,25 +1,13 @@
-image: xtity/deploy_phoenix
+image: xtity/deploy-phoenix
 env:
   - MIX_ENV=test
 script:
   - mix clean
-  # - yes | mix local.hex && yes | mix local.rebar
-  # - mix deps.get
+  - yes | mix local.hex && yes | mix local.rebar
+  - mix deps.get
   # - mix test
   # - mix compile
   # - mix dialyzer
-publish:
-  github:
-    artifacts:
-      - release
-    repo: deploy_phoenix
-    script:
-      - make release
-    tag: v$(cat VERSION)
-    token: $$github_token
-    user: xtity
-    # when:
-    #   branch: master
 deploy:
   bash:
     script:
@@ -29,13 +17,44 @@ deploy:
       - MIX_ENV=prod mix release
       # - yes | mix local.hex && yes | mix local.rebar && mix do deps.get && MIX_ENV=prod mix compile.protocols
       # - mix compile.protocols
+      - tar -cvzf ../build.tar.gz .
       - ssh xtity@xtity.com
-      - ssh xtity@xtity.com "if [ ! -e /usr/local/src/phoenix/app/rel/deploy_phoenix/releases/$(cat VERSION) ]; then
-          mkdir -p /usr/local/src/phoenix/app/rel/deploy_phoenix/releases/$(cat VERSION);
-        fi;"
-      - scp -r rel/*/*.tar.gz xtity@xtity.com:/usr/local/src/phoenix/app/rel/deploy_phoenix/releases/$(cat VERSION)/deploy_phoenix.tar.gz
+      # - ssh xtity@xtity.com "if [ ! -e /usr/local/src/phoenix/app/deploy_phoenix/rel/deploy_phoenix/releases/$(cat VERSION) ]; then
+      #     mkdir -p /usr/local/src/phoenix/app/deploy_phoenix/rel/deploy_phoenix/releases/$(cat VERSION);
+      #   fi;"
+      # - scp -r rel/deploy_phoenix/*.tar.gz xtity@xtity.com:/usr/local/src/phoenix/app/deploy_phoenix/rel/deploy_phoenix/
+      # - scp -r rel/deploy_phoenix/*.tar.gz xtity@xtity.com:/usr/local/src/phoenix/app/deploy_phoenix/deploy/
+      - ssh xtity@xtity.com "
+          cd /usr/local/src/phoenix/deploy_phoenix/;
+          mkdir deploy;
+        "
+      - scp -r ../build.tar.gz xtity@xtity.com:/usr/local/src/phoenix/deploy_phoenix/deploy/
+      - ssh xtity@xtity.com "
+          cd /usr/local/src/phoenix/deploy_phoenix;
+          tar -xvzf build.tar.gz -C deploy/;
+          rm -rf bk;
+          cp -a current bk;
+          mv -f deploy current;
+        "
+      # - ssh xtity@xtity.com "if [ ! -e /usr/local/src/phoenix/app/deploy_phoenix/rel/deploy_phoenix/releases/$(cat VERSION) ]; then
     # when:
     #   branch: master
+
+# publish:
+#   github:
+#     artifacts:
+#       - release
+#     repo: deploy_phoenix
+#     script:
+#       - make release
+#     tag: v$(cat VERSION)
+#     token: $$github_token
+#     user: xtity
+    # when:
+    #   branch: master
+
+
+
 
 
 
