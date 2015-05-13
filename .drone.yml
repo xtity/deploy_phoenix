@@ -12,7 +12,7 @@ deploy:
   bash:
     script:
       - ssh xtity@xtity.com "
-          cd /usr/local/src/phoenix/deploy_phoenix/;
+          cd /usr/local/src/phoenix;
           if [ ! -e /usr/local/src/phoenix/deploy_phoenix/VERSION ]; then
             git clone $PHOENIX_APP_REPO;
           fi;
