@@ -12,11 +12,10 @@ deploy:
   bash:
     script:
       - ssh xtity@xtity.com "
-          if [ ! -e /usr/local/src/phoenix/deploy_phoenix/VERSION ]; then
-            cd /usr/local/src/phoenix;
-            git clone $PHOENIX_APP_REPO;
-          fi;
           cd /usr/local/src/phoenix/deploy_phoenix;
+          if [ ! -e /usr/local/src/phoenix/deploy_phoenix/VERSION ]; then
+            git checkout .;
+          fi;
           git pull origin master;
         "
       # - MIX_ENV=prod mix deps.get
