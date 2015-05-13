@@ -11,38 +11,36 @@ script:
 deploy:
   bash:
     script:
-      - MIX_ENV=prod mix deps.get
-      - npm install && brunch build
-      # - MIX_ENV=prod PORT=4000 mix release
-      - MIX_ENV=prod mix release
-      # - yes | mix local.hex && yes | mix local.rebar && mix do deps.get && MIX_ENV=prod mix compile.protocols
-      # - mix compile.protocols
-      - tar -czf ../build.tar.gz .
-      - ssh xtity@xtity.com
-      # - ssh xtity@xtity.com "if [ ! -e /usr/local/src/phoenix/app/deploy_phoenix/rel/deploy_phoenix/releases/$(cat VERSION) ]; then
-      #     mkdir -p /usr/local/src/phoenix/app/deploy_phoenix/rel/deploy_phoenix/releases/$(cat VERSION);
-      #   fi;"
-      # - scp -r rel/deploy_phoenix/*.tar.gz xtity@xtity.com:/usr/local/src/phoenix/app/deploy_phoenix/rel/deploy_phoenix/
-      # - scp -r rel/deploy_phoenix/*.tar.gz xtity@xtity.com:/usr/local/src/phoenix/app/deploy_phoenix/deploy/
       - ssh xtity@xtity.com "
           cd /usr/local/src/phoenix/deploy_phoenix/;
-          if [ -e /usr/local/src/phoenix/deploy_phoenix/deploy ]; then
-            rm -rf /usr/local/src/phoenix/deploy_phoenix/deploy;
+          if [ ! -e /usr/local/src/phoenix/deploy_phoenix/VERSION ]; then
+            git clone $PHOENIX_APP_REPO;
           fi;
-          mkdir /usr/local/src/phoenix/deploy_phoenix/deploy;
+          git pull origin master;
         "
-      - scp -r ../build.tar.gz xtity@xtity.com:/usr/local/src/phoenix/deploy_phoenix/deploy/
-      - ssh xtity@xtity.com "
-          cd /usr/local/src/phoenix/deploy_phoenix/deploy;
-          tar -xzf build.tar.gz;
-          rm -rf build.tar.gz;
-          cd /usr/local/src/phoenix/deploy_phoenix;
-          rm -rf bk;
-          cp -a current bk;
-          rm -rf current;
-          mv deploy current;
-        "
-      # - ssh xtity@xtity.com "if [ ! -e /usr/local/src/phoenix/app/deploy_phoenix/rel/deploy_phoenix/releases/$(cat VERSION) ]; then
+      # - MIX_ENV=prod mix deps.get
+      # - npm install && brunch build
+      # - MIX_ENV=prod mix release
+      # - tar -czf ../build.tar.gz .
+      # - ssh xtity@xtity.com
+      # - ssh xtity@xtity.com "
+      #     cd /usr/local/src/phoenix/deploy_phoenix/;
+      #     if [ -e /usr/local/src/phoenix/deploy_phoenix/deploy ]; then
+      #       rm -rf /usr/local/src/phoenix/deploy_phoenix/deploy;
+      #     fi;
+      #     mkdir /usr/local/src/phoenix/deploy_phoenix/deploy;
+      #   "
+      # - scp -r ../build.tar.gz xtity@xtity.com:/usr/local/src/phoenix/deploy_phoenix/deploy/
+      # - ssh xtity@xtity.com "
+      #     cd /usr/local/src/phoenix/deploy_phoenix/deploy;
+      #     tar -xzf build.tar.gz;
+      #     rm -rf build.tar.gz;
+      #     cd /usr/local/src/phoenix/deploy_phoenix;
+      #     rm -rf bk;
+      #     cp -a current bk;
+      #     rm -rf current;
+      #     mv deploy current;
+      #   "
     # when:
     #   branch: master
 
