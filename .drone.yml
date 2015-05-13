@@ -16,7 +16,7 @@ deploy:
           if [ ! -e /usr/local/src/phoenix/deploy_phoenix/.git ]; then
             git clone ${PHOENIX_APP_REPO};
           fi;
-          git checkout .
+          git checkout .;
           git pull origin master;
           cat VERSION >> /usr/local/app/phoenix/${PHOENIX_APP_NAME}/DEPLOY_VERSIONS;
         "
