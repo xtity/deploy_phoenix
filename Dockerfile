@@ -20,8 +20,8 @@ EXPOSE ${PHOENIX_APP_PORT}
 # RUN yes | mix archive.install
 
 # Install phoenix app
-RUN mkdir -p /usr/local/src/phoenix/${PHOENIX_APP_NAME}/current
-WORKDIR /usr/local/src/phoenix/${PHOENIX_APP_NAME}/current
+RUN mkdir -p /usr/local/src/phoenix
+WORKDIR /usr/local/src/phoenix
 
 # Create new phoenix app
 #RUN mix phoenix.new ${PHOENIX_APP_NAME}
@@ -30,7 +30,7 @@ WORKDIR /usr/local/src/phoenix/${PHOENIX_APP_NAME}/current
 RUN git clone ${PHOENIX_APP_REPO}
 
 # Setup phoenix app
-WORKDIR /usr/local/src/phoenix/${PHOENIX_APP_NAME}/current/${PHOENIX_APP_NAME}
+WORKDIR /usr/local/src/phoenix/${PHOENIX_APP_NAME}
 # RUN npm install
 # RUN npm install -g brunch
 
@@ -48,7 +48,7 @@ RUN yes | mix local.hex && yes | mix local.rebar && npm install && npm install -
 # Release app directory
 RUN mkdir -p /usr/local/app/phoenix/${PHOENIX_APP_NAME}
 WORKDIR /usr/local/app/phoenix/${PHOENIX_APP_NAME}
-RUN cp -a /usr/local/src/phoenix/${PHOENIX_APP_NAME}/current/${PHOENIX_APP_NAME}/rel .
+RUN cp -a /usr/local/src/phoenix/${PHOENIX_APP_NAME}/rel .
 ########## PHOENIX ##########
 
 
