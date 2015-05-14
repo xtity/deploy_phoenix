@@ -50,8 +50,6 @@ publish:
     artifacts:
       - release
     repo: deploy_phoenix
-    script:
-      - make release
     tag: v$(cat VERSION)
     token: $$github_token
     user: xtity
