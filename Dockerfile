@@ -47,22 +47,20 @@ RUN yes | mix local.hex && yes | mix local.rebar && npm install && npm install -
 RUN mkdir -p /usr/local/app/phoenix/${PHOENIX_APP_NAME}
 WORKDIR /usr/local/app/phoenix/${PHOENIX_APP_NAME}
 RUN cp -a /usr/local/src/phoenix/${PHOENIX_APP_NAME}/rel .
-RUN /bin/echo "`/bin/date --iso-8601=seconds` `/bin/cat /usr/local/src/phoenix/deploy_phoenix/VERSION`" >> DEPLOY_VERSIONS
+RUN /bin/echo "`/bin/date --iso-8601=seconds` `/bin/cat /usr/local/src/phoenix/deploy_phoenix/VERSION`" >> RELEASE_VERSIONS
 ########## PHOENIX ##########
 
 
 ########## INCRON ##########
-RUN echo "/usr/local/app/phoenix/${PHOENIX_APP_NAME}/DEPLOY_VERSIONS IN_MODIFY /bin/bash /usr/local/src/phoenix/${PHOENIX_APP_NAME}/incron_release.sh" >> /var/spool/incron/root
+RUN echo "/usr/local/app/phoenix/${PHOENIX_APP_NAME}/RELEASE_VERSIONS IN_MODIFY /bin/bash /usr/local/src/phoenix/${PHOENIX_APP_NAME}/incron_release.sh" >> /var/spool/incron/root
 ########## INCRON ##########
 
 
 ########## ON BOOT ##########
 # Run Phoenix on Cowboy server(FOR dev)
-#CMD ["/bin/bash", "-c", "mix phoenix.server"]
+#CMD ["/bin/bash", "-c", "/usr/sbin/incrond start && mix phoenix.server"]
 # Run Phoenix on Cowboy server(FOR prod)
-# CMD ["/bin/bash", "-c", "/usr/sbin/incrond"]
 CMD ["/bin/bash", "-c", "/usr/sbin/incrond start && PORT=${PHOENIX_APP_PORT} rel/${PHOENIX_APP_NAME}/bin/${PHOENIX_APP_NAME} foreground"]
-# CMD ["/bin/bash", "-c", "/usr/sbin/incrond start -n"]
 ########## ON BOOT ##########
 
 
