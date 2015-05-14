@@ -1,5 +1,4 @@
 #!/bin/bash
-# export PHOENIX_APP_VERSION=`cat /usr/local/src/phoenix/${PHOENIX_APP_NAME}/VERSION`
 
 cd /usr/local/src/phoenix/${PHOENIX_APP_NAME}
 git checkout .

@@ -31,8 +31,6 @@ RUN git clone ${PHOENIX_APP_REPO}
 
 # Setup phoenix app
 WORKDIR /usr/local/src/phoenix/${PHOENIX_APP_NAME}
-# RUN npm install
-# RUN npm install -g brunch
 
 # # Add exrm dependency
 # RUN sed -i "s/\({:cowboy,.*}\)]/\1, {:exrm, \"~> 0.14.16\"}]/g" mix.exs
@@ -49,23 +47,12 @@ RUN yes | mix local.hex && yes | mix local.rebar && npm install && npm install -
 RUN mkdir -p /usr/local/app/phoenix/${PHOENIX_APP_NAME}
 WORKDIR /usr/local/app/phoenix/${PHOENIX_APP_NAME}
 RUN cp -a /usr/local/src/phoenix/${PHOENIX_APP_NAME}/rel .
-RUN cat /usr/local/src/phoenix/${PHOENIX_APP_NAME}/VERSION >> DEPLOY_VERSIONS
+RUN /bin/echo "`/bin/date --iso-8601=seconds` `/bin/cat /usr/local/src/phoenix/deploy_phoenix/VERSION`" >> DEPLOY_VERSIONS
 ########## PHOENIX ##########
 
 
 ########## INCRON ##########
-# RUN /bin/bash -c service incrond start
-# RUN touch /vat/spool/incron/incron.root
-# RUN /usr/local/src/phoenix/app/${PHOENIX_APP_NAME}/rel/${PHOENIX_APP_NAME}/releases/${PHOENIX_APP_VERSION}/${PHOENIX_APP_NAME}.tar.gz IN_CREATE,IN_MODIFY /usr/local/src/phoenix/app/rel/${PHOENIX_APP_NAME}/bin/${PHOENIX_APP_NAME} upgrade "${PHOENIX_APP_VERSION}"
-# RUN echo "/usr/local/src/phoenix/app/${PHOENIX_APP_NAME}/rel/${PHOENIX_APP_NAME}/releases/${PHOENIX_APP_VERSION} IN_CREATE /usr/local/src/phoenix/app/rel/${PHOENIX_APP_NAME}/bin/${PHOENIX_APP_NAME} upgrade '${PHOENIX_APP_VERSION}'" >> /var/spool/incron/root
-# RUN echo "/usr/local/src/phoenix/app/${PHOENIX_APP_NAME}/rel/${PHOENIX_APP_NAME}/releases/${PHOENIX_APP_VERSION} IN_CREATE /usr/local/src/phoenix/app/rel/${PHOENIX_APP_NAME}/bin/${PHOENIX_APP_NAME} upgrade '${PHOENIX_APP_VERSION}'" >> /var/spool/incron/root
-
-# RUN echo "/root IN_CREATE touch /root/tmp/yo.txt" >> /var/spool/incron/root
-# RUN echo "/usr/local/src/phoenix/app/${PHOENIX_APP_NAME}/rel/${PHOENIX_APP_NAME}/releases IN_CREATE touch /root/tmp/yo.txt" >> /var/spool/incron/root
-# ADD incron_release.sh /usr/local/src/phoenix/app/${PHOENIX_APP_NAME}/incron_release.sh
-# RUN echo "/usr/local/app/phoenix/${PHOENIX_APP_NAME}/rel/${PHOENIX_APP_NAME}/releases IN_CREATE /bin/bash /usr/local/src/phoenix/${PHOENIX_APP_NAME}/current/${PHOENIX_APP_NAME}/incron_release.sh" >> /var/spool/incron/root
 RUN echo "/usr/local/app/phoenix/${PHOENIX_APP_NAME}/DEPLOY_VERSIONS IN_MODIFY /bin/bash /usr/local/src/phoenix/${PHOENIX_APP_NAME}/incron_release.sh" >> /var/spool/incron/root
-# RUN echo "/usr/local/src/phoenix/app/${PHOENIX_APP_NAME}/rel/${PHOENIX_APP_NAME}/releases/$PHOENIX_APP_VERSION/$PHOENIX_APP_NAME.tar.gz IN_CREATE touch /root/tmp/yo.txt" >> /var/spool/incron/root
 ########## INCRON ##########
 
 
