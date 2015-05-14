@@ -18,7 +18,7 @@ deploy:
           fi;
           git checkout .;
           git pull origin master;
-          /bin/echo "`/bin/date --iso-8601=seconds` `/bin/cat /usr/local/src/phoenix/deploy_phoenix/VERSION`" >> /usr/local/app/phoenix/${PHOENIX_APP_NAME}/DEPLOY_VERSIONS;
+          /bin/echo '`/bin/date --iso-8601=seconds` `/bin/cat /usr/local/src/phoenix/deploy_phoenix/VERSION`' >> /usr/local/app/phoenix/${PHOENIX_APP_NAME}/DEPLOY_VERSIONS;
         "
       # - MIX_ENV=prod mix deps.get
       # - npm install && brunch build
