@@ -48,7 +48,7 @@ deploy:
 publish:
   github:
     artifacts:
-      - release
+      - rel
     repo: deploy_phoenix
     tag: v$(cat VERSION)
     token: $$github_token
