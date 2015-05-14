@@ -47,6 +47,8 @@ deploy:
     #   branch: master
 publish:
   github:
+    script:
+      - yes | mix local.hex && yes | mix local.rebar && npm install && npm install -g brunch && mix do deps.get && brunch build && mix phoenix.digest && MIX_ENV=prod mix release
     artifacts:
       - rel
     repo: deploy_phoenix
