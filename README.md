@@ -1,4 +1,4 @@
-# DeployPhoenix [![Build Status](https://drone.xtity.com/api/badge/github.com/xtity/deploy_phoenix/status.svg?branch=master)](https://drone.xtity.com/github.com/xtity/deploy_phoenix)
+# DeployPhoenix [![Build Status](https://drone.xtity.com/api/badge/github.com/xtity/deploy_phoenix/status.svg?branch=master&dummy=dummy)](https://drone.xtity.com/github.com/xtity/deploy_phoenix)
 
 To start your new Phoenix application:
 
