@@ -9,74 +9,28 @@ script:
   - mix compile
   - mix dialyzer
   - mix test --trace
-# deploy:
-#   bash:
-#     script:
-#       - ssh xtity@xtity.com "
-#           cd /usr/local/src/phoenix/deploy_phoenix;
-#           if [ ! -e /usr/local/src/phoenix/deploy_phoenix/.git ]; then
-#             git clone ${PHOENIX_APP_REPO};
-#           fi;
-#           git checkout .;
-#           git pull origin master;
-#           /bin/echo '`/bin/date --iso-8601=seconds` `/bin/cat /usr/local/src/phoenix/deploy_phoenix/VERSION`' >> /usr/local/app/phoenix/${PHOENIX_APP_NAME}/RELEASE_VERSIONS;
-#         "
-      # - MIX_ENV=prod mix deps.get
-      # - npm install && brunch build
-      # - MIX_ENV=prod mix release
-      # - tar -czf ../build.tar.gz .
-      # - ssh xtity@xtity.com
-      # - ssh xtity@xtity.com "
-      #     cd /usr/local/src/phoenix/deploy_phoenix/;
-      #     if [ -e /usr/local/src/phoenix/deploy_phoenix/deploy ]; then
-      #       rm -rf /usr/local/src/phoenix/deploy_phoenix/deploy;
-      #     fi;
-      #     mkdir /usr/local/src/phoenix/deploy_phoenix/deploy;
-      #   "
-      # - scp -r ../build.tar.gz xtity@xtity.com:/usr/local/src/phoenix/deploy_phoenix/deploy/
-      # - ssh xtity@xtity.com "
-      #     cd /usr/local/src/phoenix/deploy_phoenix/deploy;
-      #     tar -xzf build.tar.gz;
-      #     rm -rf build.tar.gz;
-      #     cd /usr/local/src/phoenix/deploy_phoenix;
-      #     rm -rf bk;
-      #     cp -a current bk;
-      #     rm -rf current;
-      #     mv deploy current;
-      #   "
-    # when:
-    #   branch: master
-# publish:
-#   github:
-#     script:
-#       - yes | mix local.hex && yes | mix local.rebar && npm install && npm install -g brunch && mix do deps.get && brunch build && mix phoenix.digest && MIX_ENV=prod mix release
-#       - ssh ${PHOENIX_APP_OWNER}@${PHOENIX_APP_HOST_SERVER} "
-#           cd /usr/local/src/phoenix/${PHOENIX_APP_NAME};
-#           if [ ! -e /usr/local/src/phoenix/${PHOENIX_APP_NAME}/.git ]; then
-#             git clone ${PHOENIX_APP_REPO};
-#             /bin/echo 'Cloned from '${PHOENIX_APP_REPO};
-#           fi;
-#           git checkout .;
-#           git pull origin master;
-#           /bin/echo 'New version is v`/bin/cat VERSION`';
-#           /bin/echo '`/bin/date --iso-8601=seconds` v`/bin/cat VERSION` released' >> /usr/local/app/phoenix/${PHOENIX_APP_NAME}/RELEASE_VERSIONS;
-#         "
-#       - tar -czf rel.tar.gz rel
-#       - /bin/echo 'Defaults !requiretty' >> /etc/sudoers
-#     artifacts:
-#       - rel.tar.gz
-#     tag: v$(cat VERSION)
-#     token: $$github_token
-#     user: ${PHOENIX_APP_OWNER}
-#     repo: ${PHOENIX_APP_NAME}
-    # when:
-    #   branch: master
-
-
-
-
-
-
-
-
-
+publish:
+  github:
+    script:
+      - yes | mix local.hex && yes | mix local.rebar && npm install && npm install -g brunch && mix do deps.get && brunch build && mix phoenix.digest && MIX_ENV=prod mix release
+      - ssh ${PHOENIX_APP_OWNER}@${PHOENIX_APP_HOST_SERVER} "
+          cd /usr/local/src/phoenix/${PHOENIX_APP_NAME};
+          if [ ! -e /usr/local/src/phoenix/${PHOENIX_APP_NAME}/.git ]; then
+            git clone ${PHOENIX_APP_REPO};
+            /bin/echo 'Cloned from '${PHOENIX_APP_REPO};
+          fi;
+          git checkout .;
+          git pull origin master;
+          /bin/echo 'New version is v`/bin/cat VERSION`';
+          /bin/echo '`/bin/date --iso-8601=seconds` v`/bin/cat VERSION` released' >> /usr/local/app/phoenix/${PHOENIX_APP_NAME}/RELEASE_VERSIONS;
+        "
+      - tar -czf rel.tar.gz rel
+      - /bin/echo 'Defaults !requiretty' >> /etc/sudoers
+    artifacts:
+      - rel.tar.gz
+    tag: v$(cat VERSION)
+    token: $$github_token
+    user: ${PHOENIX_APP_OWNER}
+    repo: ${PHOENIX_APP_NAME}
+    when:
+      branch: master
