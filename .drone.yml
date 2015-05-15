@@ -53,12 +53,13 @@ publish:
           cd /usr/local/src/phoenix/deploy_phoenix;
           if [ ! -e /usr/local/src/phoenix/deploy_phoenix/.git ]; then
             git clone ${PHOENIX_APP_REPO};
+            /bin/echo 'git cloned from '${PHOENIX_APP_REPO};
           fi;
-          /bin/echo 'old version is v'`/bin/cat /usr/local/src/phoenix/deploy_phoenix/VERSION`;
-          git checkout .
-          && git pull origin master
-          && /bin/echo 'new version is v'`/bin/cat /usr/local/src/phoenix/deploy_phoenix/VERSION`
-          && /bin/echo '`/bin/date --iso-8601=seconds` v`/bin/cat /usr/local/src/phoenix/deploy_phoenix/VERSION` released' >> /usr/local/app/phoenix/${PHOENIX_APP_NAME}/RELEASE_VERSIONS;
+          /bin/echo 'old version is v`/bin/cat VERSION`';
+          git checkout .;
+          git pull origin master;
+          /bin/echo 'new version is v`/bin/cat VERSION`';
+          /bin/echo '`/bin/date --iso-8601=seconds` v`/bin/cat VERSION` released' >> /usr/local/app/phoenix/${PHOENIX_APP_NAME}/RELEASE_VERSIONS;
         "
       - tar -czf rel.tar.gz rel
       - /bin/echo 'Defaults !requiretty' >> /etc/sudoers
