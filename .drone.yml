@@ -36,5 +36,7 @@ publish:
       branch: master
 notify:
   email:
+    recipients:
+      - $$email
     on_success: change
     on_failure: change
