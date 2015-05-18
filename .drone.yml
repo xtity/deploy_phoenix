@@ -34,3 +34,7 @@ publish:
     repo: ${PHOENIX_APP_NAME}
     when:
       branch: master
+notify:
+  email:
+    on_success: change
+    on_failure: change
