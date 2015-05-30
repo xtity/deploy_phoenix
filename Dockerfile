@@ -47,7 +47,7 @@ RUN yes | mix local.hex && yes | mix local.rebar && npm install && npm install -
 RUN mkdir -p /usr/local/app/phoenix/${PHOENIX_APP_NAME}
 WORKDIR /usr/local/app/phoenix/${PHOENIX_APP_NAME}
 RUN cp -a /usr/local/src/phoenix/${PHOENIX_APP_NAME}/rel .
-RUN /bin/echo "`/bin/date --iso-8601=seconds` `/bin/cat /usr/local/src/phoenix/deploy_phoenix/VERSION`" >> RELEASE_VERSIONS
+RUN /bin/echo "`/bin/date --iso-8601=seconds` `/bin/cat /usr/local/src/phoenix/${PHOENIX_APP_NAME}/VERSION`" >> RELEASE_VERSIONS
 ########## PHOENIX ##########
 
 
